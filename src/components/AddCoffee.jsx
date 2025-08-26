@@ -4,6 +4,24 @@ const AddCoffee = () => {
     const handleAddCoffee = e => {
         e.preventDefault()
         const form = e.target;
+
+        const formData = new FormData(form)
+        const newCoffee = Object.fromEntries(formData.entries())
+        console.log(newCoffee)
+
+        // send coffee data to db
+        fetch('http://localhost:3000/coffees',{
+          method:'POST',
+          headers:{
+            'content-type':'application/json'
+          },
+          body:JSON.stringify(newCoffee)
+
+        })
+           .then(res => res.json())
+           .then(data => {
+            console.log('after adding coffee data to db ',data)
+           })
     }
   return (
      <div className="p-24">
