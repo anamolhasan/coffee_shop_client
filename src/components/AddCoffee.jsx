@@ -1,30 +1,37 @@
-import React from 'react'
+import React from "react";
+import Swal from "sweetalert2";
 
 const AddCoffee = () => {
-    const handleAddCoffee = e => {
-        e.preventDefault()
-        const form = e.target;
+  const handleAddCoffee = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-        const formData = new FormData(form)
-        const newCoffee = Object.fromEntries(formData.entries())
-        console.log(newCoffee)
+    const formData = new FormData(form);
+    const newCoffee = Object.fromEntries(formData.entries());
+    console.log(newCoffee);
 
-        // send coffee data to db
-        fetch('http://localhost:3000/coffees',{
-          method:'POST',
-          headers:{
-            'content-type':'application/json'
-          },
-          body:JSON.stringify(newCoffee)
-
-        })
-           .then(res => res.json())
-           .then(data => {
-            console.log('after adding coffee data to db ',data)
-           })
-    }
+    // send coffee data to db
+    fetch("http://localhost:3000/coffees", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          console.log("after adding coffee data to db ", data);
+          Swal.fire({
+            title: "Coffee added !",
+            icon: "success",
+            draggable: true,
+          });
+        }
+      });
+  };
   return (
-     <div className="p-24">
+    <div className="p-24">
       <div className="p-12 text-center space-y-12">
         <h1 className="text-6xl ">Add Coffee</h1>
         <p>
@@ -110,7 +117,7 @@ const AddCoffee = () => {
         <input type="submit" value="Add Coffee" className="btn w-full" />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddCoffee
+export default AddCoffee;
