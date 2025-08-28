@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children:[
       {
         index:true,
-        loader:()=> fetch('http://localhost:3000/coffees'),
+        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/coffees`),
         
         Component:Home
       },
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {
         path:'updateCoffee/:id',
         Component:UpdateCoffee,
-        loader:({params})=> fetch(`http://localhost:3000/coffees/${params.id}`)
+        loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`)
       }
     ]
   },

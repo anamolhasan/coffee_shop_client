@@ -14,7 +14,7 @@ const UpdateCoffee = () => {
     const updateForm = Object.fromEntries(formData.entries());
     console.log(updateForm);
 
-    fetch(`http://localhost:3000/coffees/${_id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/coffees/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
