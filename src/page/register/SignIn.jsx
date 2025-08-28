@@ -1,6 +1,7 @@
-import React from 'react'
+
 
 const SignIn = () => {
+ 
   return (
     <div className="card bg-base-100  max-w-md mx-auto shrink-0  mt-20">
       <div className="card-body ">

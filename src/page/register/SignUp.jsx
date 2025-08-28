@@ -1,14 +1,39 @@
-import React from 'react'
+import React, { use } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const SignUp = () => {
+  const { createUser } = use(AuthContext);
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    // create in the firebase
+    createUser(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
-   <div className="card bg-base-100  max-w-md mx-auto shrink-0  mt-20">
+    <div className="card bg-base-100  max-w-md mx-auto shrink-0  mt-20">
       <div className="card-body ">
         <h1 className="text-4xl font-bold">Sign up now!</h1>
-        <form onSubmit={''} className="fieldset">
-
+        <form onSubmit={handleSignUp} className="fieldset">
+          
           <label className="label">Name</label>
-          <input type="text" name="name" className="input" placeholder="name" />
+          <input 
+            type="text" 
+            name="name" 
+            className="input" 
+            placeholder="name" 
+          />
 
           <label className="label">address</label>
           <input
@@ -57,7 +82,7 @@ const SignUp = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
