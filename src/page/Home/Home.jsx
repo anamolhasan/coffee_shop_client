@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router";
-import CoffeeCard from "./CoffeeCard";
+import CoffeeCard from "../coffees/components/CoffeeCard";
 
 const Home = () => {
   const initialCoffees = useLoaderData();

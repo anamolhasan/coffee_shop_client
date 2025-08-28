@@ -6,10 +6,12 @@ import App from './App.jsx'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import MainLayout from './layouts/MainLayout.jsx';
-import Home from './components/Home.jsx';
-import AddCoffee from './components/AddCoffee.jsx';
-import UpdateCoffee from './components/UpdateCoffee.jsx';
-import CoffeeDetails from './components/CoffeeDetails.jsx';
+import Home from './page/Home/Home.jsx';
+import AddCoffee from './page/coffees/addCoffee/AddCoffee.jsx';
+import UpdateCoffee from './page/coffees/updateCoffee/UpdateCoffee.jsx';
+import CoffeeDetails from './page/coffees/allCoffee/CoffeeDetails.jsx';
+import SignIn from './page/register/SignIn.jsx';
+import SignUp from './page/register/SignUp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
         path:'updateCoffee/:id',
         Component:UpdateCoffee,
         loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`)
+      },
+      {
+        path:'signIn',
+        Component:SignIn
+      },
+      {
+        path:'signUp',
+        Component:SignUp
       }
     ]
   },
