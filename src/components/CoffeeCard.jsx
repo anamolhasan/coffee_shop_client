@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
   const { _id, photo, quantity, supplier, taste, name, price } = coffee;
 
   const handleDelete = (_id) => {
-    console.log(_id);
+    // console.log(_id);
 
     Swal.fire({
       title: "Are you sure?",
@@ -31,6 +31,10 @@ const CoffeeCard = ({ coffee }) => {
                 text: "Your file has been deleted.",
                 icon: "success",
               });
+
+              // delete coffee automatic update ui
+              const deletedUpdateCoffee = coffees.filter(cof => cof._id !== _id)
+              setCoffees(deletedUpdateCoffee)
             }
           });
       }
