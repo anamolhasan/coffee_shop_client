@@ -11,20 +11,33 @@ const SignUp = () => {
     const form = e.target;
     const formData = new FormData(form);
 
-    const { email, password, ...userProfile } = Object.fromEntries(
+    const { email, password, ...restFormData } = Object.fromEntries(
       formData.entries()
     );
 
     // const email = formData.get("email");
     // const password = formData.get("password");
-    console.log(email, password, userProfile);
+
     // create in the firebase
     createUser(email, password)
       .then((result) => {
         console.log(result);
 
-        // save profile in the database
-        fetch(`${import.meta.env.VITE_API_URL}/users`)
+        const userProfile = {
+          email,
+          ...restFormData,
+          creationTime:result.user.metadata.creationTime,
+          lastSignInTime:result.user.metadata.lastSignInTime
+        };
+        console.log(email, password, restFormData);
+        // save profile in the database --
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userProfile),
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.insertedId) {
