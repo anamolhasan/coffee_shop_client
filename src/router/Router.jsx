@@ -7,6 +7,7 @@ import UpdateCoffee from "../page/coffees/updateCoffee/UpdateCoffee";
 import SignIn from "../page/register/SignIn";
 import SignUp from "../page/register/SignUp";
 import Loading from "../components/Loading";
+import Users from "../page/users/Users";
 
 
 export const router = createBrowserRouter([
@@ -41,7 +42,13 @@ export const router = createBrowserRouter([
       {
         path:'signUp',
         Component:SignUp
-      }
+      },
+      {
+        path:'users',
+        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
+        hydrateFallbackElement: <Loading />,
+        Component:Users
+      },
     ]
   },
 ]);

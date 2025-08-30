@@ -26,8 +26,8 @@ const SignUp = () => {
         const userProfile = {
           email,
           ...restFormData,
-          creationTime:result.user.metadata.creationTime,
-          lastSignInTime:result.user.metadata.lastSignInTime
+          creationTime: result.user.metadata.creationTime,
+          lastSignInTime: result.user.metadata.lastSignInTime,
         };
         console.log(email, password, restFormData);
         // save profile in the database --
@@ -41,6 +41,7 @@ const SignUp = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.insertedId) {
+            
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -62,13 +63,18 @@ const SignUp = () => {
         <h1 className="text-4xl font-bold">Sign up now!</h1>
         <form onSubmit={handleSignUp} className="fieldset">
           <label className="label">Name</label>
-          <input type="text" name="name" className="input" placeholder="name" />
+          <input
+            type="text"
+            name="name"
+            className="input w-full"
+            placeholder="name"
+          />
 
           <label className="label">address</label>
           <input
             type="text"
             name="address"
-            className="input"
+            className="input w-full"
             placeholder="address"
           />
 
@@ -76,7 +82,7 @@ const SignUp = () => {
           <input
             type="text"
             name="phone"
-            className="input"
+            className="input w-full"
             placeholder="phone"
           />
 
@@ -84,7 +90,7 @@ const SignUp = () => {
           <input
             type="text"
             name="photo"
-            className="input"
+            className="input w-full"
             placeholder="photo"
           />
 
@@ -92,7 +98,7 @@ const SignUp = () => {
           <input
             type="email"
             name="email"
-            className="input"
+            className="input w-full"
             placeholder="Email"
           />
 
@@ -100,7 +106,7 @@ const SignUp = () => {
           <input
             type="password"
             name="password"
-            className="input"
+            className="input w-full"
             placeholder="Password"
           />
 
