@@ -12,7 +12,10 @@ const AuthProvider = ({children}) => {
     }
 
     const deleteAccountUser = () => {
-         return deleteUser(user)
+         if (auth.currentUser) {
+            return deleteUser(auth.currentUser)
+         }
+         return Promise.reject(new Error('No user login'))
     }
 
 
@@ -25,7 +28,8 @@ const AuthProvider = ({children}) => {
 
     const userInfo = {
           createUser,
-          user
+          user,
+          deleteAccountUser
     }
   return (
     <AuthContext value={userInfo}>

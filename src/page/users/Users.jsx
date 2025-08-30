@@ -7,6 +7,7 @@ const Users = () => {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
   const { user, deleteAccountUser } = use(AuthContext);
+  // console.log(user);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -19,13 +20,16 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-           // 🔹 Step 1: First delete form database
-             fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
-              method: "DELETE",
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data.deletedCount) {
+        // 🔹 Step 1: First delete form database
+        fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              // Then delete form firebase (only current user)
+              deleteAccountUser()
+                .then(() => {
                   // delete filter
                   const remainingUser = users.filter((user) => user._id !== id);
                   setUsers(remainingUser);
@@ -35,9 +39,12 @@ const Users = () => {
                     text: "Your file has been deleted.",
                     icon: "success",
                   });
-                }
-              });
-       
+                })
+                .catch((error) => {
+                  console.error("Firebase delete error:", error.message);
+                });
+            }
+          });
       }
     });
   };
