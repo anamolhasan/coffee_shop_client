@@ -1,12 +1,10 @@
 # coffee shop client
 
-## 🔗 Live Website
-**frontend** [coffee shop](https://coffee-shop-40926.web.app) 
-
-## this is full MERN coffee shop project
+## 🔗 Live Website   [coffee shop](https://coffee-shop-40926.web.app) 
 
 
-## 📦 Dependencies (From package.json)
+
+## 📦 Dependencies 
 ```
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
@@ -19,7 +17,7 @@
   },
 ```
 
-## 📦 Dependencies (From package.json)
+## 📦 Dependencies 
 ```
  "devDependencies": {
     "@eslint/js": "^9.33.0",
@@ -38,23 +36,20 @@
 ## 🧪 Getting Started
 * git clone
 ```
-git clone https://github.com/Programming-Hero-Web-Course4/b11a11-client-side-anamolhasan
-cd tourzen-client
+git clone https://github.com/anamolhasan/coffee_shop_client.git
+cd coffee_shop_client
 npm install
 npm run dev
 ```
 
 ## 🔐 .env Example
 ```
-
-
 VITE_apiKey=
 VITE_authDomain=
 VITE_projectId=
 VITE_storageBucket=
 VITE_messagingSenderId=
 VITE_appId=
-
 
 VITE_API_URL=http://localhost:3000
 ```
