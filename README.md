@@ -46,12 +46,7 @@ npm run dev
 
 ## 🔐 .env Example
 ```
-<!-- VITE_apiKey=AIzaSyAhFew5Lc9FnXBpfwi4lBa2B9qywMdEXug
-VITE_authDomain=coffee-shop-40926.firebaseapp.com
-VITE_projectId=coffee-shop-40926
-VITE_storageBucket=coffee-shop-40926.firebasestorage.app
-VITE_messagingSenderId=136999450068
-VITE_appId=1:136999450068:web:d2f27c730984c712a2d241 -->
+
 
 VITE_apiKey=
 VITE_authDomain=
