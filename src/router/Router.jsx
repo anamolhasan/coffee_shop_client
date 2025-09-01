@@ -8,6 +8,7 @@ import SignIn from "../page/register/SignIn";
 import SignUp from "../page/register/SignUp";
 import Loading from "../components/Loading";
 import Users from "../page/users/Users";
+import Users2 from "../page/users/Users2";
 
 
 export const router = createBrowserRouter([
@@ -48,6 +49,12 @@ export const router = createBrowserRouter([
         loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
         hydrateFallbackElement: <Loading />,
         Component:Users
+      },
+      {
+        path:'users2',
+        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
+        hydrateFallbackElement: <Loading />,
+        Component:Users2
       },
     ]
   },

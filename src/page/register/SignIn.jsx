@@ -1,51 +1,65 @@
-import { use } from "react"
-import { AuthContext } from "../../context/AuthContext"
-
+import { use } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
-const {signInUser} = use(AuthContext)
+  const { signInUser } = use(AuthContext);
 
-  const handleSignIn = e => {
-    e.preventDefault()
-    const form = e.target 
-    const email = form.email.value
-    const password = form.password.value
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
     // console.log(email, password)
 
     // firebase sign in send
     signInUser(email, password)
-      .then(result => {
-        console.log(result.user)
+      .then((result) => {
+        console.log(result.user);
         const signInInfo = {
           email,
-          lastSignInTime: result.user?.metadata?.lastSignInTime
-        }
-      
-          // update last sign in to the database
-          fetch(`${import.meta.env.VITE_API_URL}/users`, {
-            method:'PATCH',
-            headers: {
-              'content-type':'application/json'
-            },
-            body:JSON.stringify(signInInfo)
-          })
-            .then(res => res.json() )
-            .then(data => {
-              console.log('after update data',data)
-            })
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
+
+        axios
+          .patch(`${import.meta.env.VITE_API_URL}/users`, signInInfo)
+          .then((data) => {
+            console.log(data.data);
+            if (data.data.insertedId) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your SignIn successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+
+        // update last sign in to the database
+        // fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        //   method: "PATCH",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(signInInfo),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log("after update data", data);
+        //   });
       })
-      .catch(error => {
-        console.log(error)
-      })
-  }
- 
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="card bg-base-100  max-w-md mx-auto shrink-0  mt-20">
       <div className="card-body ">
         <h1 className="text-4xl font-bold">Sign In now!</h1>
         <form onSubmit={handleSignIn} className="fieldset">
-          
-         
           <label className="label">Email</label>
           <input
             type="email"
@@ -67,7 +81,7 @@ const {signInUser} = use(AuthContext)
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
