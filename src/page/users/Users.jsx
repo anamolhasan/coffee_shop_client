@@ -6,9 +6,10 @@ import { AuthContext } from "../../context/AuthContext";
 const Users = () => {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
-  const { user, deleteAccountUser } = use(AuthContext);
+  const {  deleteAccountUser } = use(AuthContext);
   // console.log(user);
 
+  
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",

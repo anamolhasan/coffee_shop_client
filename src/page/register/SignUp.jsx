@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const SignUp = () => {
   const { createUser } = use(AuthContext);
@@ -30,18 +31,13 @@ const SignUp = () => {
           lastSignInTime: result.user.metadata.lastSignInTime,
         };
         console.log(email, password, restFormData);
-        // save profile in the database --
-        fetch(`${import.meta.env.VITE_API_URL}/users`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(userProfile),
-        })
-          .then((res) => res.json())
+
+        // using axios
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/users`, userProfile)
           .then((data) => {
-            if (data.insertedId) {
-            
+            console.log(data.data);
+            if (data.data.insertedId) {
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -51,6 +47,28 @@ const SignUp = () => {
               });
             }
           });
+        // using fetch
+        // save profile in the database --
+        // fetch(`${import.meta.env.VITE_API_URL}/users`, {
+        //   method: "POST",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(userProfile),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     if (data.insertedId) {
+
+        //       Swal.fire({
+        //         position: "center",
+        //         icon: "success",
+        //         title: "Your work has been saved",
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //       });
+        //     }
+        //   });
       })
       .catch((error) => {
         console.log(error);
