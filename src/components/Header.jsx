@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const Header = () => {
   return (
-    <div>
+    <div> 
       <ul className='flex items-center justify-center gap-5 py-5 font-bold'>
         <li>
           <Link to={'/'}>Home</Link>

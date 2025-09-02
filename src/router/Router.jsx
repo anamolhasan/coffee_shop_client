@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     children:[
       {
         index:true,
-        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/coffees`),
+        // loader:()=> fetch(`${import.meta.env.VITE_API_URL}/coffees`),
         hydrateFallbackElement: <Loading />,
         Component:Home
       },
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
       {
         path:'updateCoffee/:id',
         Component:UpdateCoffee,
-        loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
+        // loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
         hydrateFallbackElement: <Loading />
       },
       {
@@ -44,18 +44,18 @@ export const router = createBrowserRouter([
         path:'signUp',
         Component:SignUp
       },
-      {
-        path:'users',
-        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
-        hydrateFallbackElement: <Loading />,
-        Component:Users
-      },
-      {
-        path:'users2',
-        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
-        hydrateFallbackElement: <Loading />,
-        Component:Users2
-      },
+      // {
+      //   path:'users',
+      //   loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
+      //   hydrateFallbackElement: <Loading />,
+      //   Component:Users
+      // },
+      // {
+      //   path:'users2',
+      //   loader:()=> fetch(`${import.meta.env.VITE_API_URL}/users`),
+      //   hydrateFallbackElement: <Loading />,
+      //   Component:Users2
+      // },
     ]
   },
 ]);

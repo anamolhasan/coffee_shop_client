@@ -19,27 +19,33 @@ const SignIn = () => {
     // firebase sign in send
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
-        const signInInfo = {
-          email,
-          lastSignInTime: result.user?.metadata?.lastSignInTime,
-        };
+        console.log(result.user)
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful!',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        // const signInInfo = {
+        //   email,
+        //   lastSignInTime: result.user?.metadata?.lastSignInTime,
+        // };
 
-        axios
-          .patch(`${import.meta.env.VITE_API_URL}/users`, signInInfo)
-          .then((data) => {
-            console.log(data.data);
-            if (data.data.insertedId) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your SignIn successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-            navigate(location?.state || "/");
-          });
+        // axios
+        //   .patch(`${import.meta.env.VITE_API_URL}/users`, signInInfo)
+        //   .then((data) => {
+        //     console.log(data.data);
+        //     if (data.data.insertedId) {
+        //       Swal.fire({
+        //         position: "center",
+        //         icon: "success",
+        //         title: "Your SignIn successfully",
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //       });
+        //     }
+        //     navigate(location?.state || "/");
+        //   });
 
         // update last sign in to the database
         // fetch(`${import.meta.env.VITE_API_URL}/users`, {
@@ -53,6 +59,7 @@ const SignIn = () => {
         //   .then((data) => {
         //     console.log("after update data", data);
         //   });
+      
       })
       .catch((error) => {
         console.log(error);
@@ -64,6 +71,7 @@ const SignIn = () => {
     googleSignIn()
       .then(result => {
         console.log(result.user)
+        navigate(location.state || '/')
       })
       .catch(error => {
         console.log(error)

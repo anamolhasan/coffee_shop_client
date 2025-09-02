@@ -2,9 +2,11 @@ import React, { use } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const SignUp = () => {
-  const { createUser } = use(AuthContext);
+  const { createUser, setUsers, updateUser } = use(AuthContext)
+  const navigate = useNavigate()
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -12,7 +14,7 @@ const SignUp = () => {
     const form = e.target;
     const formData = new FormData(form);
 
-    const { email, password, ...restFormData } = Object.fromEntries(
+    const { email, password, name, photo } = Object.fromEntries(
       formData.entries()
     );
 
@@ -22,31 +24,42 @@ const SignUp = () => {
     // create in the firebase
     createUser(email, password)
       .then((result) => {
-        console.log(result);
+        console.log(result.user)
+        updateUser({displayName:name, PhotoURL:photo})
+          .then(()=>{
+            setUsers({...result?.user, displayName:name, PhotoURL:photo})
+            Swal.fire({
+            icon: 'success',
+            title: 'Your account is created.',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          navigate('/')
+          })
 
-        const userProfile = {
-          email,
-          ...restFormData,
-          creationTime: result.user.metadata.creationTime,
-          lastSignInTime: result.user.metadata.lastSignInTime,
-        };
-        console.log(email, password, restFormData);
+        // const userProfile = {
+        //   email,
+        //   ...restFormData,
+        //   creationTime: result.user.metadata.creationTime,
+        //   lastSignInTime: result.user.metadata.lastSignInTime,
+        // };
+        // console.log(email, password, restFormData);
 
         // using axios
-        axios
-          .post(`${import.meta.env.VITE_API_URL}/users`, userProfile)
-          .then((data) => {
-            console.log(data.data);
-            if (data.data.insertedId) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your SignUp successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          });
+        // axios
+        //   .post(`${import.meta.env.VITE_API_URL}/users`, userProfile)
+        //   .then((data) => {
+        //     console.log(data.data);
+        //     if (data.data.insertedId) {
+        //       Swal.fire({
+        //         position: "center",
+        //         icon: "success",
+        //         title: "Your SignUp successfully",
+        //         showConfirmButton: false,
+        //         timer: 1500,
+        //       });
+        //     }
+        //   });
         // using fetch
         // save profile in the database --
         // fetch(`${import.meta.env.VITE_API_URL}/users`, {
@@ -69,6 +82,7 @@ const SignUp = () => {
         //       });
         //     }
         //   });
+      
       })
       .catch((error) => {
         console.log(error);
@@ -88,21 +102,21 @@ const SignUp = () => {
             placeholder="name"
           />
 
-          <label className="label">address</label>
+          {/* <label className="label">address</label>
           <input
             type="text"
             name="address"
             className="input w-full"
             placeholder="address"
-          />
+          /> */}
 
-          <label className="label">phone</label>
+          {/* <label className="label">phone</label>
           <input
             type="text"
             name="phone"
             className="input w-full"
             placeholder="phone"
-          />
+          /> */}
 
           <label className="label">photo</label>
           <input
