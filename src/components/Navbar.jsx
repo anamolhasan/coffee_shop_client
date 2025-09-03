@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 const Navbar = () => {
     const {user, signOutUser} = useContext(AuthContext)
-    // console.log(user, signOutUser)
+    console.log(user?.email)
     return (
     <div className='navbar bg-base-100 shadow-sm'>
       <div className='navbar-start'>
@@ -43,7 +43,7 @@ const Navbar = () => {
                   <Link to='/addCoffee'>Add Coffee</Link>
                 </li>
                 <li>
-                  <Link to='/my-added-coffees'>My Added Coffee's</Link>
+                  <Link to={`/my-added-coffees/${user?.email}`}>My Added Coffee's</Link>
                 </li>
                 <li>
                   <Link to='/my-orders'>My Orders</Link>
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <Link to='/addCoffee'>Add Coffee</Link>
               </li>
               <li>
-                <Link to='/my-added-coffees'>My Added Coffee's</Link>
+                <Link to={`/my-added-coffees/${user?.email}`}>My Added Coffee's</Link>
               </li>
               <li>
                 <Link to='/my-orders'>My Orders</Link>

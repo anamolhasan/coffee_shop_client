@@ -44,7 +44,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
     <div>
       <div className="card card-side bg-base-100 shadow-sm border-2 p-5">
         <figure>
-          <img src={photo} alt="Movie" />
+          <img src={photo} alt="Movie" className="h-50 w-96"/>
         </figure>
         <div className="flex justify-around w-full mt-10">
           <div className="space-y-4">

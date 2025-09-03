@@ -10,42 +10,50 @@ import Loading from "../components/Loading";
 import Users from "../page/users/Users";
 import Users2 from "../page/users/Users2";
 import axios from "axios";
+import MyAddedCoffees from "../page/coffees/myAddedCoffees/MyAddedCoffees";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
-    children:[
+    children: [
       {
-        index:true,
+        index: true,
         // loader:()=> fetch(`${import.meta.env.VITE_API_URL}/coffees`),
-        loader:()=> axios(`${import.meta.env.VITE_API_URL}/coffees`),
+        loader: () => axios(`${import.meta.env.VITE_API_URL}/coffees`),
         hydrateFallbackElement: <Loading />,
-        Component:Home
+        Component: Home,
       },
       {
-        path:'addCoffee',
-        Component:AddCoffee
+        path: "addCoffee",
+        Component: AddCoffee,
       },
       {
-        path:'coffee/:id',
-        loader: ({params})=> axios(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
-        Component:CoffeeDetails
+        path: "coffee/:id",
+        loader: ({ params }) =>
+          axios(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
+        Component: CoffeeDetails,
       },
       {
-        path:'updateCoffee/:id',
-        Component:UpdateCoffee,
+        path: "updateCoffee/:id",
+        Component: UpdateCoffee,
         // loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
-        hydrateFallbackElement: <Loading />
+        hydrateFallbackElement: <Loading />,
       },
       {
-        path:'signIn',
-        Component:SignIn
+        path: "signIn",
+        Component: SignIn,
       },
       {
-        path:'signUp',
-        Component:SignUp
+        path: "signUp",
+        Component: SignUp,
+      },
+      {
+        path: "my-added-coffees/:email",
+        loader: ({ params }) =>
+          axios(`${import.meta.env.VITE_API_URL}/my-coffees/${params.email}`),
+        Component: MyAddedCoffees
       },
       // {
       //   path:'users',
@@ -59,6 +67,6 @@ export const router = createBrowserRouter([
       //   hydrateFallbackElement: <Loading />,
       //   Component:Users2
       // },
-    ]
+    ],
   },
 ]);
