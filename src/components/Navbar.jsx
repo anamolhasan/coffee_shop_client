@@ -3,7 +3,8 @@ import { AuthContext } from '../context/AuthContext'
 import { Link } from 'react-router'
 
 const Navbar = () => {
-    const {user, logOut} = useContext(AuthContext)
+    const {user, signOutUser} = useContext(AuthContext)
+    // console.log(user, signOutUser)
     return (
     <div className='navbar bg-base-100 shadow-sm'>
       <div className='navbar-start'>
@@ -83,7 +84,7 @@ const Navbar = () => {
                       className='w-8 rounded-full hidden md:flex'
                     />
                   )}
-                  <button className='btn btn-warning' onClick={logOut}>
+                  <button className='btn btn-warning' onClick={signOutUser}>
                     Logout
                   </button>
                 </div>

@@ -17,6 +17,9 @@ const SignUp = () => {
     const { email, password, name, photo } = Object.fromEntries(
       formData.entries()
     );
+    console.log(email, password, name, photo)
+
+    
 
     // const email = formData.get("email");
     // const password = formData.get("password");
@@ -25,9 +28,9 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result.user)
-        updateUser({displayName:name, PhotoURL:photo})
+        updateUser({displayName:name, photoURL:photo})
           .then(()=>{
-            setUsers({...result?.user, displayName:name, PhotoURL:photo})
+            setUsers({...result?.user, displayName:name, photoURL:photo})
             Swal.fire({
             icon: 'success',
             title: 'Your account is created.',
