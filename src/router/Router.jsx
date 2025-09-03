@@ -9,6 +9,7 @@ import SignUp from "../page/register/SignUp";
 import Loading from "../components/Loading";
 import Users from "../page/users/Users";
 import Users2 from "../page/users/Users2";
+import axios from "axios";
 
 
 export const router = createBrowserRouter([
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       {
         index:true,
         // loader:()=> fetch(`${import.meta.env.VITE_API_URL}/coffees`),
+        loader:()=> axios(`${import.meta.env.VITE_API_URL}/coffees`),
         hydrateFallbackElement: <Loading />,
         Component:Home
       },
@@ -28,6 +30,7 @@ export const router = createBrowserRouter([
       },
       {
         path:'coffee/:id',
+        loader: ({params})=> axios(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
         Component:CoffeeDetails
       },
       {

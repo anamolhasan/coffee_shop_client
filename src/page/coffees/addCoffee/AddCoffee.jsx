@@ -1,34 +1,57 @@
-import React from "react";
+import React, { use } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../context/AuthContext";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const AddCoffee = () => {
+  const {user} = use(AuthContext)
+  const navigate = useNavigate()
+
+
   const handleAddCoffee = (e) => {
     e.preventDefault();
     const form = e.target;
 
     const formData = new FormData(form);
     const newCoffee = Object.fromEntries(formData.entries());
-    console.log(newCoffee);
+    // console.log(newCoffee);
+    newCoffee.email = user?.email
+    newCoffee.likedBy = []
 
-    // send coffee data to db
-    fetch(`${import.meta.env.VITE_API_URL}/coffees`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newCoffee),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          console.log("after adding coffee data to db ", data);
-          Swal.fire({
+    // axios post method
+    axios.post(`${import.meta.env.VITE_API_URL}/coffees`,newCoffee)
+     .then(data => {
+      console.log(data)
+      Swal.fire({
             title: "Coffee added !",
             icon: "success",
             draggable: true,
           });
-        }
-      });
+          navigate('/')
+     })
+     .catch(error => {
+      console.log(error)
+     })
+    // send coffee data to db
+    // fetch(`${import.meta.env.VITE_API_URL}/coffees`, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(newCoffee),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.insertedId) {
+    //       console.log("after adding coffee data to db ", data);
+    //       Swal.fire({
+    //         title: "Coffee added !",
+    //         icon: "success",
+    //         draggable: true,
+    //       });
+    //     }
+    //   });
   };
   return (
     <div className="p-24">

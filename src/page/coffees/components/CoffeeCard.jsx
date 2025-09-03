@@ -19,7 +19,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         // start deleting the coffee
-        fetch(`http://localhost:3000/coffees/${_id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/coffees/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
