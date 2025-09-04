@@ -7,7 +7,7 @@ const CoffeeDetails = () => {
   const { user } = use(AuthContext);
 
   const { data: coffee } = useLoaderData();
- 
+
   const {
     _id,
     name,
@@ -21,25 +21,28 @@ const CoffeeDetails = () => {
     likedBy,
   } = coffee || {};
 
-   const [liked, setLiked] = useState(likedBy.includes(user?.email));
-   const [likedCount, setLikedCount] = useState(likedBy.length)
+  const [liked, setLiked] = useState(likedBy.includes(user?.email));
+  const [likedCount, setLikedCount] = useState(likedBy.length);
 
-   const handleLike = () => {
-      if(user?.email === email ) return alert('Lojja Korean?')
-//  handle like toggle fetch call
-      axios.patch(`${import.meta.env.VITE_API_URL}/like/${_id}`,{email: user?.email})
-      .then(data => {
-        console.log(data.data)
-        const isLiked = data?.data?.liked
+  const handleLike = () => {
+    if (user?.email === email) return alert("Lojja Korean?");
+    //  handle like toggle fetch call
+    axios
+      .patch(`${import.meta.env.VITE_API_URL}/like/${_id}`, {
+        email: user?.email,
+      })
+      .then((data) => {
+        console.log(data.data);
+        const isLiked = data?.data?.liked;
         // update like state
-        setLiked(isLiked)
+        setLiked(isLiked);
         // update like count state
-        setLikedCount(prev => isLiked ? prev + 1 : prev -1)
+        setLikedCount((prev) => (isLiked ? prev + 1 : prev - 1));
       })
-      .catch(err => {
-        console.log(err)
-      })
-   }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="flex justify-center items-center min-h-screen  p-6">
       <div className=" shadow-lg rounded-2xl max-w-lg w-full overflow-hidden">
@@ -74,8 +77,11 @@ const CoffeeDetails = () => {
             <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700">
               Order Now
             </button>
-            <button onClick={handleLike} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300">
-             👍 {liked ?'liked':'like'}
+            <button
+              onClick={handleLike}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300"
+            >
+              👍 {liked ? "liked" : "like"}
             </button>
           </div>
         </div>
