@@ -6,7 +6,8 @@ import axios from "axios";
 const CoffeeDetails = () => {
   const { user } = use(AuthContext);
 
-  const { data: coffee } = useLoaderData();
+  const { data } = useLoaderData();
+  const [coffee, setCoffee] = useState(data)
 
   const {
     _id,
@@ -28,6 +29,7 @@ const CoffeeDetails = () => {
     setLiked(likedBy.includes(user?.email))
   },[likedBy, user])
 
+  // handle like/dislike
   const handleLike = () => {
     if (user?.email === email) return alert("Lojja Korean?");
     //  handle like toggle fetch call
@@ -47,6 +49,27 @@ const CoffeeDetails = () => {
         console.log(err);
       });
   };
+
+// handle order
+const handleOrder = () => {
+  if(user?.email === email) return alert('tomar nijer coffee')
+    const orderInfo = {
+  coffeeId: _id,
+  customerEmail:user?.email,
+}
+    // save order info in db
+  axios.post(`${import.meta.env.VITE_API_URL}/place-order/${_id}`, orderInfo)
+       .then(data => {
+        console.log(data)
+        setCoffee(prev => {
+          return {...prev, quantity: prev.quantity - 1}
+        })
+       })
+       .catch(error => {
+        console.log(error)
+       })
+
+}
   return (
     <div className="flex justify-center items-center min-h-screen  p-6">
       <div className=" shadow-lg rounded-2xl max-w-lg w-full overflow-hidden">
@@ -78,7 +101,7 @@ const CoffeeDetails = () => {
           </div>
 
           <div className="mt-6 flex justify-between">
-            <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700">
+            <button onClick={handleOrder} className="px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700">
               Order Now
             </button>
             <button
