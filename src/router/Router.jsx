@@ -11,7 +11,7 @@ import Users from "../page/users/Users";
 import Users2 from "../page/users/Users2";
 import axios from "axios";
 import MyAddedCoffees from "../page/coffees/myAddedCoffees/MyAddedCoffees";
-
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -27,19 +27,31 @@ export const router = createBrowserRouter([
       },
       {
         path: "addCoffee",
-        Component: AddCoffee,
+        element: (
+          <PrivateRoute>
+            <AddCoffee />
+          </PrivateRoute>
+        ),
       },
       {
         path: "coffee/:id",
         loader: ({ params }) =>
           axios(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
-        Component: CoffeeDetails,
+        element: (
+          <PrivateRoute>
+            <CoffeeDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "updateCoffee/:id",
-        Component: UpdateCoffee,
         // loader:({params})=> fetch(`${import.meta.env.VITE_API_URL}/coffees/${params.id}`),
         hydrateFallbackElement: <Loading />,
+        element: (
+          <PrivateRoute>
+            <UpdateCoffee />
+          </PrivateRoute>
+        ),
       },
       {
         path: "signIn",
@@ -53,7 +65,11 @@ export const router = createBrowserRouter([
         path: "my-added-coffees/:email",
         loader: ({ params }) =>
           axios(`${import.meta.env.VITE_API_URL}/my-coffees/${params.email}`),
-        Component: MyAddedCoffees
+        element: (
+          <PrivateRoute>
+            <MyAddedCoffees />
+          </PrivateRoute>
+        ),
       },
       // {
       //   path:'users',

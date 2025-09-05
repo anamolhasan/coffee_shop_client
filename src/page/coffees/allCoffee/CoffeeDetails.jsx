@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
@@ -24,6 +24,10 @@ const CoffeeDetails = () => {
   const [liked, setLiked] = useState(likedBy.includes(user?.email));
   const [likedCount, setLikedCount] = useState(likedBy.length);
 
+  useEffect(()=>{
+    setLiked(likedBy.includes(user?.email))
+  },[likedBy, user])
+
   const handleLike = () => {
     if (user?.email === email) return alert("Lojja Korean?");
     //  handle like toggle fetch call
@@ -32,7 +36,7 @@ const CoffeeDetails = () => {
         email: user?.email,
       })
       .then((data) => {
-        console.log(data.data);
+        // console.log(data?.data);
         const isLiked = data?.data?.liked;
         // update like state
         setLiked(isLiked);
